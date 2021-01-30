@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function game() {
+            alert("Приветствую, Игрок, хочешь найти сундук с сокровищами? Он спрятан в тайной комнате... Тебе прийдется пройти 6 других, чтобы узнать пароль к ней! Для этого нужно угадывать загадки :)");
+            let room1 = {
+                greeting: "Угадай загадку чтобы получить первую букву пароля к тайной комнате",
+                quest: "В Полотняной стране, По реке Простыне Плывет пароход То назад, то вперед, А за ним такая гладь— Ни морщинки не видать.",
+                answer: "утюг",
+                passLetter: " C"
+            };
+            let room2 = {
+                greeting: "Угадай загадку чтобы получить вторую букву пароля к тайной комнате",
+                quest: "Стоит дуб, В нем двенадцать гнезд, В каждом гнезде По четыре яйца, В каждом яйце По семи цыпленков.",
+                answer: "год",
+                passLetter: " У"
+            };
+            let room3 = {
+                greeting: "Угадай загадку чтобы получить третью букву пароля к тайной комнате",
+                quest: "Вот иголки и булавки Выползают из-под лавки, На меня они глядят, Молока они хотят.",
+                answer: "ёж",
+                passLetter: " Н"
+            };
+            let room4 = {
+                greeting: "Угадай загадку чтобы получить четвёртую букву пароля к тайной комнате",
+                quest: "Страну чудес откроем мы И встретимся с героями В строчках, На листочках, Где станции на точках.",
+                answer: "книга",
+                passLetter: " Д"
+            };
+            let room5 = {
+                greeting: "Угадай загадку чтобы получить пятую букву пароля к тайной комнате",
+                quest: "Ёжик странный у Егорки На окне сидит в ведерке. День и ночь он дремлет, Спрятав ножки в землю.",
+                answer: "кактус",
+                passLetter: " У"
+            };
+            let room6 = {
+                greeting: "Угадай загадку чтобы получить шестую букву пароля к тайной комнате",
+                quest: "Если день нахмурится, Если дождь пойдет — Выйдет он на улицу, Надо мной вспорхнет.",
+                answer: "зонт",
+                passLetter: " К"
+            };
+            let room7 = {
+                answer: "сундук",
+                resultTrue: "Поздравляю, клад твой! :)",
+                resultFalse: "Пароль неверный, попробуй ещё раз:)"
+            };
+            let rooms = [room1, room2, room3, room4, room5, room6, room7];
+
+            alert("В каждой из комнат под номером от 1 до 6 ты узнаешь 1 символ, все символы составят пароль к тайной комнате. Для перехода к тайной комнате введи 7");
+
+            let password = [" * ", " * ", " * ", " * ", " * ", " * "];
+            var room = +prompt("Какую комнату ты выбираешь?");
+
+            function mainStream() {
+                debugger;
+                if (room > 0 && room < 7) {
+                    passwordCreate();
+                } else if (room == 7) {
+                    lastRoom();
+                } else if (room == 0) {
+                    return;
+                } else {
+                    alert("Для перехода к одной из комнат введи любое значение от 1 до 6. Для перехода к тайной комнате введи 7. Для выхода введи 0.");
+                    room = +prompt("Какую комнату ты выбираешь?");
+                    mainStream();
+                }
+                return;
+            }
+            mainStream();
+
+            return;
+
+            function passwordCreate() {
+                // debugger;
+                let i = 0;
+                i = --room;
+                alert(rooms[i].greeting);
+                alert(rooms[i].quest);
+                rooms[i].passwordGuess = prompt("Твой ответ?");
+                if (rooms[i].passwordGuess == rooms[i].answer) {
+                    alert("Правильно! один из символов пароля -" + rooms[i].passLetter);
+                    password[i] = rooms[i].passLetter;
+                    alert("Пароль к тайной комнате - " + password.join(" ") + "\n Открой больше комнат, чтобы узнать весь пароль!");
+                    var continueRooms = +prompt("Хочешь продолжить открывать комнаты? \n Да - нажми 1, чтобы перейти к тайной комнате нажми 2 \n Для выхода нажми 0");
+                    if (continueRooms == 1) {
+                        room = +prompt("Какую комнату ты выбираешь?");
+                        passwordCreate();
+                    } else if (continueRooms == 2) {
+                        lastRoom();
+                        return;
+                    } else if (continueRooms == 0) {
+                        return;
+                    } else {
+                        room = +prompt("Какую комнату ты выбираешь?");
+                        passwordCreate();
+                    }
+                } else {
+                    continueRooms = +prompt("Неправильно! Хочешь продолжить открывать комнаты? \n Да - нажми 1, чтобы перейти к тайной комнате нажми 2 \n Для выхода нажми 0");
+                    if (continueRooms == 1) {
+                        room = +prompt("Какую комнату ты выбираешь?");
+                        passwordCreate();
+                    } else if (continueRooms == 2) {
+                        lastRoom();
+                        return;
+                    } else if (continueRooms == 0) {
+                        return;
+                    } else {
+                        room = +prompt("Какую комнату ты выбираешь?");
+                        passwordCreate();
+                    }
+                }
+                return;
+            }
+
+            function lastRoom() {
+                let passwordGuess = prompt('Итак, перед тобой дверь тайной комнаты, чтобы открыть её, введи пароль');
+                if (passwordGuess == rooms[6].answer) {
+                    alert(rooms[6].resultTrue);
+                } else {
+                    alert(rooms[6].resultFalse);
+                }
+                return;
+            }
+        }
+        game();
+    </script>
+</body>
+
+</html>
